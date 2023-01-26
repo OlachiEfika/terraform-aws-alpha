@@ -73,7 +73,7 @@ resource "aws_nat_gateway" "nat" {
 }
 
 resource "aws_route_table" "private" {
-  count = length(local.public_cidr)
+  count = length(local.private_cidr)
 
   vpc_id = aws_vpc.main.id
 
@@ -84,7 +84,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "private" {
-  count = length(local.public_cidr)
+  count = length(local.private_cidr)
 
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
