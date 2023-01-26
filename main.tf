@@ -7,15 +7,6 @@ locals {
 
   availability_zones = ["us-east-1a", "us-east-1b"]
 
-  public_RT_ass = 2
-  
-  private_RT_ass = 2
-  
-  private_RT = 2
-
-  ct_eip = 2
-  
-  nat_gates = 2
 }
 
 resource "aws_vpc" "main" {
@@ -62,27 +53,27 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "public" {
-  count = local.public_RT_ass
+  count = length(local.public_cidr)
 
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public.id
 }
 
 resource "aws_eip" "nat" {
-  count = local.ct_eip
+  count = length(local.public_cidr)
 
   vpc = true
 }
 
 resource "aws_nat_gateway" "nat" {
-  count = local.nat_gates 
+  count = length(local.public_cidr) 
 
   allocation_id = aws_eip.nat[count.index].id
   subnet_id = aws_subnet.public[count.index].id
 }
 
 resource "aws_route_table" "private" {
-  count = local.private_RT
+  count = length(local.public_cidr)
 
   vpc_id = aws_vpc.main.id
 
@@ -93,7 +84,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route_table_association" "private" {
-  count = local.private_RT_ass
+  count = length(local.public_cidr)
 
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
