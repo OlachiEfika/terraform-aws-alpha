@@ -62,11 +62,11 @@ resource "aws_security_group" "private" {
 }
 
 resource "aws_instance" "private" {
-  ami                         = "ami-0aa7d40eeae50c9a9"
-  instance_type               = "t2.micro"
-  key_name                    = "devops"
-  vpc_security_group_ids      = [aws_security_group.private.id]
-  subnet_id                   = aws_subnet.private[0].id
+  ami                    = "ami-0aa7d40eeae50c9a9"
+  instance_type          = "t2.micro"
+  key_name               = "devops"
+  vpc_security_group_ids = [aws_security_group.private.id]
+  subnet_id              = aws_subnet.private[0].id
 
   tags = {
     Name = "${var.env_code}-private"
