@@ -24,7 +24,7 @@ resource "aws_security_group" "public" {
 }
 
 resource "aws_instance" "public" {
-  ami                         = "data.aws_ami.amazonlinux.id"
+  ami                         = data.aws_ami.amazonlinux.id
   instance_type               = "t2.micro"
   associate_public_ip_address = true
   key_name                    = "devops"
@@ -62,7 +62,7 @@ resource "aws_security_group" "private" {
 }
 
 resource "aws_instance" "private" {
-  ami                    = "data.aws_ami.amazonlinux.id"
+  ami                    = data.aws_ami.amazonlinux.id
   instance_type          = "t2.micro"
   key_name               = "devops"
   vpc_security_group_ids = [aws_security_group.private.id]
@@ -72,3 +72,4 @@ resource "aws_instance" "private" {
     Name = "${var.env_code}-private"
   }
 }
+

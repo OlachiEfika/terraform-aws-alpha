@@ -11,10 +11,11 @@ data "aws_ami" "amazonlinux" {
     values = ["hvm"]
   }
 
-  owners = [136347917745]
+  owners = [137112412989]
 }
 
 data "aws_availability_zones" "available" {
   state = "available"
 }
+
 
