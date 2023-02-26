@@ -8,4 +8,4 @@ private_cidr = ["10.0.2.0/24", "10.0.3.0/24"]
 
 my_public_ip = "99.240.72.78"
 
-region = "us-east-1"
+region = "ca-central-1"
